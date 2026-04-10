@@ -179,11 +179,31 @@ class SolitaireViewModel {
         hoveredDrop = hitTestDrop(at: dragStartLocation)
     }
 
+    /// Antal synliga kort i waste (fläkt), som i klassisk draw-1 / draw-3-klient.
+    func wasteVisibleFanCount() -> Int {
+        guard !waste.isEmpty else { return 0 }
+        return min(waste.count, drawCount, 3)
+    }
+
+    func wasteFanStagger(cardWidth: CGFloat) -> CGFloat {
+        max(12, cardWidth * 0.2)
+    }
+
+    func wastePileDisplayWidth(cardWidth: CGFloat) -> CGFloat {
+        let n = wasteVisibleFanCount()
+        let stagger = wasteFanStagger(cardWidth: cardWidth)
+        if n <= 0 { return cardWidth }
+        return cardWidth + CGFloat(n - 1) * stagger
+    }
+
     func beginWasteDrag(cardWidth: CGFloat, dragStartLocation: CGPoint) {
         guard activeDrag == nil, waste.last != nil else { return }
         selection = nil
         let rect = dropZones.first { $0.destination == .waste }?.rect ?? .zero
-        let base = CGPoint(x: rect.minX, y: rect.minY)
+        let stagger = wasteFanStagger(cardWidth: cardWidth)
+        let visible = wasteVisibleFanCount()
+        let topOffsetX = CGFloat(max(0, visible - 1)) * stagger
+        let base = CGPoint(x: rect.minX + topOffsetX, y: rect.minY)
         activeDrag = SolitaireDragState(
             payload: .waste,
             previewCards: [waste.last!],

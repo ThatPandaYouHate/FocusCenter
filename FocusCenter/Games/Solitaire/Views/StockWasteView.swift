@@ -43,15 +43,43 @@ struct WastePileView: View {
     private var cardHeight: CGFloat { cardWidth * 1.4 }
     private let tapVsDragThreshold: CGFloat = 10
 
+    private var fanStagger: CGFloat { viewModel.wasteFanStagger(cardWidth: cardWidth) }
+
+    private var visibleFanCards: [(fanIndex: Int, globalIndex: Int, card: Card)] {
+        guard !waste.isEmpty else { return [] }
+        let n = viewModel.wasteVisibleFanCount()
+        let start = waste.count - n
+        return (0..<n).map { i in
+            let g = start + i
+            return (fanIndex: i, globalIndex: g, card: waste[g])
+        }
+    }
+
     var body: some View {
-        ZStack(alignment: .top) {
+        ZStack(alignment: .topLeading) {
             CardView(card: nil, width: cardWidth, isPlaceholder: true)
-            if let topCard = waste.last {
-                CardView(
-                    card: topCard,
-                    width: cardWidth,
-                    isSelected: viewModel.isSelected(location: .waste, cardIndex: waste.count - 1)
-                )
+
+            ForEach(visibleFanCards, id: \.globalIndex) { item in
+                wasteFanCard(item: item)
+            }
+        }
+        .frame(width: viewModel.wastePileDisplayWidth(cardWidth: cardWidth), height: cardHeight, alignment: .topLeading)
+        .solitaireDropZone(.waste)
+    }
+
+    @ViewBuilder
+    private func wasteFanCard(item: (fanIndex: Int, globalIndex: Int, card: Card)) -> some View {
+        let isTop = item.globalIndex == waste.count - 1
+        let face = CardView(
+            card: item.card,
+            width: cardWidth,
+            isSelected: viewModel.isSelected(location: .waste, cardIndex: item.globalIndex)
+        )
+        .offset(x: CGFloat(item.fanIndex) * fanStagger)
+        .zIndex(Double(item.fanIndex))
+
+        if isTop {
+            face
                 .opacity(viewModel.wasteDragOpacity())
                 .simultaneousGesture(
                     TapGesture(count: 2).onEnded { _ in
@@ -85,9 +113,9 @@ struct WastePileView: View {
                             }
                         }
                 )
-            }
+        } else {
+            face
+                .allowsHitTesting(false)
         }
-        .frame(width: cardWidth, height: cardHeight, alignment: .top)
-        .solitaireDropZone(.waste)
     }
 }

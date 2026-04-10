@@ -109,7 +109,7 @@ struct SolitaireView: View {
                 .frame(width: cardWidth, height: cardHeight, alignment: .top)
 
             WastePileView(waste: viewModel.waste, cardWidth: cardWidth, viewModel: viewModel)
-                .frame(width: cardWidth, height: cardHeight, alignment: .top)
+                .frame(width: viewModel.wastePileDisplayWidth(cardWidth: cardWidth), height: cardHeight, alignment: .topLeading)
 
             Color.clear
                 .frame(width: cardWidth, height: cardHeight)
