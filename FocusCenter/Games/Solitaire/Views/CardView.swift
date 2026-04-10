@@ -23,7 +23,7 @@ struct CardView: View {
     private func faceUpCard(_ card: Card) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: width * 0.1)
-                .fill(Color(.systemBackground))
+                .fill(Color.white)
             RoundedRectangle(cornerRadius: width * 0.1)
                 .strokeBorder(isSelected ? Color.yellow : Color.gray.opacity(0.3), lineWidth: isSelected ? 2 : 0.5)
 
@@ -35,7 +35,7 @@ struct CardView: View {
                         Text(card.suit.symbol)
                             .font(.system(size: width * 0.22))
                     }
-                    .foregroundStyle(card.color == .red ? .red : .primary)
+                    .foregroundStyle(card.color == .red ? Color.red : Color.black)
                     Spacer()
                 }
                 .padding(.leading, width * 0.08)
@@ -45,7 +45,7 @@ struct CardView: View {
 
                 Text(card.suit.symbol)
                     .font(.system(size: width * 0.45))
-                    .foregroundStyle(card.color == .red ? .red : .primary)
+                    .foregroundStyle(card.color == .red ? Color.red : Color.black)
                     .opacity(0.4)
 
                 Spacer()

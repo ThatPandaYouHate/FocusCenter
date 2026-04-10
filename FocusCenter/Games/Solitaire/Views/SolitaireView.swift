@@ -1,7 +1,13 @@
 import SwiftUI
 
 struct SolitaireView: View {
-    @State private var viewModel = SolitaireViewModel()
+    @State private var viewModel: SolitaireViewModel
+    private let onRequestDifficultySelection: () -> Void
+
+    init(initialDrawCount: Int, onRequestDifficultySelection: @escaping () -> Void) {
+        self.onRequestDifficultySelection = onRequestDifficultySelection
+        _viewModel = State(initialValue: SolitaireViewModel(drawCount: initialDrawCount))
+    }
 
     var body: some View {
         GeometryReader { geo in
@@ -46,23 +52,8 @@ struct SolitaireView: View {
 
                 Spacer()
 
-                Picker("Draw", selection: Binding(
-                    get: { viewModel.drawCount },
-                    set: { newValue in
-                        viewModel.drawCount = newValue
-                        withAnimation(.snappy) { viewModel.newGame() }
-                    }
-                )) {
-                    Text("Draw 1").tag(1)
-                    Text("Draw 3").tag(3)
-                }
-                .pickerStyle(.segmented)
-                .frame(width: 160)
-
-                Spacer()
-
                 Button {
-                    withAnimation(.snappy) { viewModel.newGame() }
+                    onRequestDifficultySelection()
                 } label: {
                     Label("Nytt spel", systemImage: "arrow.clockwise")
                 }
@@ -70,7 +61,7 @@ struct SolitaireView: View {
         }
         .alert("Grattis!", isPresented: $viewModel.showWin) {
             Button("Nytt spel") {
-                withAnimation(.snappy) { viewModel.newGame() }
+                onRequestDifficultySelection()
             }
         } message: {
             Text("Du vann patiens!")

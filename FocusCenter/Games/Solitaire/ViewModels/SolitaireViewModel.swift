@@ -20,7 +20,8 @@ class SolitaireViewModel {
 
     var canUndo: Bool { !undoStack.isEmpty }
 
-    init() {
+    init(drawCount: Int = 3) {
+        self.drawCount = drawCount
         newGame()
     }
 

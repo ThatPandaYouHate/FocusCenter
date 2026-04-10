@@ -28,6 +28,7 @@
 		9E81C4C8BAEFCB1EFD9692D3 /* NonogramClueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E278E5D7A4CD020F18AC13A5 /* NonogramClueView.swift */; };
 		A955C0EDA4D05EAC6C6B0C28 /* DisableInteractivePopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A306EC5AFB08AA7245A9545C /* DisableInteractivePopGesture.swift */; };
 		A9776ACE6957A3F6BABD0FC2 /* MinesweeperBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C92A1D836B24CE610EAA34 /* MinesweeperBoard.swift */; };
+		AA308D65128ED33DE60E7E80 /* SolitaireEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EBAA07D724E1FD393630B /* SolitaireEntryView.swift */; };
 		AF3CDB600017FE740EE46AFC /* StockWasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB15E1A9A5955E1827A1A8C2 /* StockWasteView.swift */; };
 		B6B921FC62107C6640DE7C5B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2518844498A10F617223F181 /* ContentView.swift */; };
 		D6F89AD723788462E9640FFF /* NonogramGridCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92112F4861CCD85E49153EE0 /* NonogramGridCellView.swift */; };
@@ -46,6 +47,7 @@
 		2518844498A10F617223F181 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		267F0CBA2C73C4D4A73F70EE /* MinesweeperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperViewModel.swift; sourceTree = "<group>"; };
 		3C949CE02B6408F1FF6C0F87 /* Grid2048.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid2048.swift; sourceTree = "<group>"; };
+		3F2EBAA07D724E1FD393630B /* SolitaireEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireEntryView.swift; sourceTree = "<group>"; };
 		42FCC24E785201C446073620 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		43B3F2F1DF2BE239FF21B726 /* SolitaireDragPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireDragPayload.swift; sourceTree = "<group>"; };
 		4747CBD8FB8E82E1A82B28E0 /* SolitaireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireViewModel.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			children = (
 				9575758F9C45E8C074B5F98F /* CardView.swift */,
 				BDF2E44FA6637939732B6769 /* FoundationPileView.swift */,
+				3F2EBAA07D724E1FD393630B /* SolitaireEntryView.swift */,
 				1A6839B98C008474CF0A96DE /* SolitaireView.swift */,
 				FB15E1A9A5955E1827A1A8C2 /* StockWasteView.swift */,
 				98B6DADCCC0DD9E53A19340E /* TableauPileView.swift */,
@@ -374,6 +377,7 @@
 				E76DCB920DC046257535F287 /* NonogramView.swift in Sources */,
 				8D2D9329A009EC45E90BC63C /* NonogramViewModel.swift in Sources */,
 				1B4ACF3B270C8952E30CD0AC /* SolitaireDragPayload.swift in Sources */,
+				AA308D65128ED33DE60E7E80 /* SolitaireEntryView.swift in Sources */,
 				F893C4965FAEC1F3D53DC266 /* SolitaireMove.swift in Sources */,
 				5FF24E92FB11DD4BB536A47D /* SolitaireView.swift in Sources */,
 				0B4AF1350CFCE636E15DD37D /* SolitaireViewModel.swift in Sources */,

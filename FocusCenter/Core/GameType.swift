@@ -19,7 +19,7 @@ enum GameType: String, CaseIterable, Identifiable, Hashable {
 
     var description: String {
         switch self {
-        case .solitaire: "Klassisk Klondike-patiens med draw 1 eller 3"
+        case .solitaire: "Klondike – välj dra 1 (lätt) eller dra 3 (svår) innan partiet"
         case .minesweeper: "Hitta alla minor utan att klicka på dem"
         case .game2048: "Skjut och slå ihop brickor till 2048"
         case .nonogram: "Lös pixelpussel med ledtrådar"
@@ -47,7 +47,7 @@ enum GameType: String, CaseIterable, Identifiable, Hashable {
     @ViewBuilder
     var destinationView: some View {
         switch self {
-        case .solitaire: SolitaireView()
+        case .solitaire: SolitaireEntryView()
         case .minesweeper: MinesweeperView()
         case .game2048: Game2048View()
         case .nonogram: NonogramView()
