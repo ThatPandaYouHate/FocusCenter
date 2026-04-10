@@ -108,11 +108,17 @@ struct SolitaireView: View {
             StockPileView(stock: viewModel.stock, cardWidth: cardWidth, viewModel: viewModel)
                 .frame(width: cardWidth, height: cardHeight, alignment: .top)
 
-            WastePileView(waste: viewModel.waste, cardWidth: cardWidth, viewModel: viewModel)
-                .frame(width: viewModel.wastePileDisplayWidth(cardWidth: cardWidth), height: cardHeight, alignment: .topLeading)
+            // Layout: en kolumnbredd; fläkten ritas i overlay så ess-raden inte trycks åt höger.
+            Color.clear
+                .frame(width: cardWidth, height: cardHeight)
+                .overlay(alignment: .topLeading) {
+                    WastePileView(waste: viewModel.waste, cardWidth: cardWidth, viewModel: viewModel)
+                }
+                .zIndex(1)
 
             Color.clear
                 .frame(width: cardWidth, height: cardHeight)
+                .allowsHitTesting(false)
 
             ForEach(0..<4, id: \.self) { i in
                 FoundationPileView(
