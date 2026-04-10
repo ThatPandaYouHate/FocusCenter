@@ -41,6 +41,7 @@ struct WastePileView: View {
     let viewModel: SolitaireViewModel
 
     private var cardHeight: CGFloat { cardWidth * 1.4 }
+    private let tapVsDragThreshold: CGFloat = 10
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -51,18 +52,42 @@ struct WastePileView: View {
                     width: cardWidth,
                     isSelected: viewModel.isSelected(location: .waste, cardIndex: waste.count - 1)
                 )
-                .onTapGesture(count: 2) {
-                    withAnimation(.snappy) {
-                        viewModel.handleDoubleTap(location: .waste, cardIndex: waste.count - 1)
+                .opacity(viewModel.wasteDragOpacity())
+                .simultaneousGesture(
+                    TapGesture(count: 2).onEnded { _ in
+                        viewModel.cancelActiveDrag()
+                        withAnimation(.snappy) {
+                            viewModel.handleDoubleTap(location: .waste, cardIndex: waste.count - 1)
+                        }
                     }
-                }
-                .onTapGesture {
-                    withAnimation(.snappy) {
-                        viewModel.handleTap(location: .waste, cardIndex: waste.count - 1)
-                    }
-                }
+                )
+                .gesture(
+                    DragGesture(minimumDistance: 0, coordinateSpace: .named(SolitaireBoardLayout.coordinateSpaceName))
+                        .onChanged { value in
+                            if viewModel.activeDrag == nil {
+                                viewModel.beginWasteDrag(
+                                    cardWidth: cardWidth,
+                                    dragStartLocation: value.startLocation
+                                )
+                            }
+                            viewModel.updateDrag(location: value.location)
+                        }
+                        .onEnded { value in
+                            let moved = hypot(value.translation.width, value.translation.height)
+                            guard viewModel.activeDrag != nil else { return }
+                            if moved < tapVsDragThreshold {
+                                viewModel.cancelActiveDrag()
+                                withAnimation(.snappy) {
+                                    viewModel.handleTap(location: .waste, cardIndex: waste.count - 1)
+                                }
+                            } else {
+                                viewModel.commitDrag(at: value.location)
+                            }
+                        }
+                )
             }
         }
         .frame(width: cardWidth, height: cardHeight, alignment: .top)
+        .solitaireDropZone(.waste)
     }
 }

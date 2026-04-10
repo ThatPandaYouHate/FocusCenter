@@ -8,21 +8,33 @@ struct SolitaireView: View {
             let cardWidth = cardWidth(for: geo.size.width)
             let spacing = (geo.size.width - cardWidth * 7) / 8
 
-            ScrollView {
-                VStack(spacing: 16) {
-                    topRow(cardWidth: cardWidth, spacing: spacing)
-                        .padding(.horizontal, spacing)
+            VStack(spacing: 16) {
+                topRow(cardWidth: cardWidth, spacing: spacing)
+                    .padding(.horizontal, spacing)
 
-                    tableauRow(cardWidth: cardWidth, spacing: spacing)
-                        .padding(.horizontal, spacing)
-                }
-                .padding(.top, 8)
-                .animation(.snappy, value: viewModel.tableau.map { $0.map(\.id) })
-                .animation(.snappy, value: viewModel.foundations.map { $0.map(\.id) })
-                .animation(.snappy, value: viewModel.waste.map(\.id))
+                tableauRow(cardWidth: cardWidth, spacing: spacing)
+                    .padding(.horizontal, spacing)
+
+                Spacer(minLength: 0)
             }
+            .padding(.top, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .coordinateSpace(name: SolitaireBoardLayout.coordinateSpaceName)
+            .onPreferenceChange(SolitaireDropZonesPreferenceKey.self) { viewModel.setDropZones($0) }
+            .overlay(alignment: .topLeading) {
+                if let drag = viewModel.activeDrag {
+                    solitaireDragPreview(for: drag)
+                        .offset(x: drag.previewDisplayOrigin.x, y: drag.previewDisplayOrigin.y)
+                        .transaction { $0.animation = nil }
+                        .allowsHitTesting(false)
+                }
+            }
+            .animation(.snappy, value: viewModel.tableau.map { $0.map(\.id) })
+            .animation(.snappy, value: viewModel.foundations.map { $0.map(\.id) })
+            .animation(.snappy, value: viewModel.waste.map(\.id))
         }
         .background(Color(red: 0.1, green: 0.35, blue: 0.15))
+        .disableInteractivePopGesture()
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {
@@ -68,6 +80,26 @@ struct SolitaireView: View {
     private func cardWidth(for screenWidth: CGFloat) -> CGFloat {
         let width = (screenWidth - 8 * 6) / 7
         return min(width, 80)
+    }
+
+    private func solitaireDragPreview(for drag: SolitaireDragState) -> some View {
+        let faceDownOffset: CGFloat = 8
+        let faceUpOffset: CGFloat = 20
+        return ZStack(alignment: .top) {
+            ForEach(Array(drag.previewCards.enumerated()), id: \.element.id) { step, card in
+                CardView(card: card, width: drag.cardWidth, isSelected: false)
+                    .offset(y: previewStackStepY(drag.previewCards, step: step, faceDown: faceDownOffset, faceUp: faceUpOffset))
+            }
+        }
+        .shadow(color: .black.opacity(0.4), radius: 10, y: 5)
+    }
+
+    private func previewStackStepY(_ cards: [Card], step: Int, faceDown: CGFloat, faceUp: CGFloat) -> CGFloat {
+        var y: CGFloat = 0
+        for j in 0..<step {
+            y += cards[j].isFaceUp ? faceUp : faceDown
+        }
+        return y
     }
 
     private func topRow(cardWidth: CGFloat, spacing: CGFloat) -> some View {

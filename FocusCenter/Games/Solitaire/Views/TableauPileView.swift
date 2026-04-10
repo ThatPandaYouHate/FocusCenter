@@ -7,6 +7,7 @@ struct TableauPileView: View {
     let viewModel: SolitaireViewModel
     private let faceDownOffset: CGFloat = 8
     private let faceUpOffset: CGFloat = 20
+    private let tapVsDragThreshold: CGFloat = 10
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -19,27 +20,71 @@ struct TableauPileView: View {
                 }
 
             ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
-                CardView(
-                    card: card,
-                    width: cardWidth,
-                    isSelected: viewModel.isSelected(location: .tableau(pileIndex), cardIndex: index)
-                )
-                .offset(y: yOffset(for: index))
-                .zIndex(Double(index))
-                .onTapGesture(count: 2) {
-                    withAnimation(.snappy) {
-                        viewModel.handleDoubleTap(location: .tableau(pileIndex), cardIndex: index)
-                    }
-                }
-                .onTapGesture {
-                    withAnimation(.snappy) {
-                        viewModel.handleTap(location: .tableau(pileIndex), cardIndex: index)
-                    }
-                }
-                .sensoryFeedback(.selection, trigger: viewModel.selection)
+                tableauCard(index: index, card: card)
             }
         }
         .frame(width: cardWidth, height: totalHeight, alignment: .top)
+        .solitaireDropZone(.tableau(pileIndex))
+        .overlay {
+            RoundedRectangle(cornerRadius: cardWidth * 0.1)
+                .stroke(
+                    Color.yellow.opacity(viewModel.hoveredDrop == .tableau(pileIndex) ? 0.85 : 0),
+                    lineWidth: 2
+                )
+        }
+    }
+
+    @ViewBuilder
+    private func tableauCard(index: Int, card: Card) -> some View {
+        let base = CardView(
+            card: card,
+            width: cardWidth,
+            isSelected: viewModel.isSelected(location: .tableau(pileIndex), cardIndex: index)
+        )
+        .offset(y: yOffset(for: index))
+        .zIndex(Double(index))
+        .sensoryFeedback(.selection, trigger: viewModel.selection)
+
+        if card.isFaceUp {
+            base
+                .opacity(viewModel.tableauDragOpacity(column: pileIndex, cardIndex: index))
+                .simultaneousGesture(
+                    TapGesture(count: 2).onEnded { _ in
+                        viewModel.cancelActiveDrag()
+                        withAnimation(.snappy) {
+                            viewModel.handleDoubleTap(location: .tableau(pileIndex), cardIndex: index)
+                        }
+                    }
+                )
+                .gesture(
+                    DragGesture(minimumDistance: 0, coordinateSpace: .named(SolitaireBoardLayout.coordinateSpaceName))
+                        .onChanged { value in
+                            if viewModel.activeDrag == nil {
+                                viewModel.beginTableauDrag(
+                                    column: pileIndex,
+                                    startIndex: index,
+                                    cardWidth: cardWidth,
+                                    dragStartLocation: value.startLocation
+                                )
+                            }
+                            viewModel.updateDrag(location: value.location)
+                        }
+                        .onEnded { value in
+                            let moved = hypot(value.translation.width, value.translation.height)
+                            guard viewModel.activeDrag != nil else { return }
+                            if moved < tapVsDragThreshold {
+                                viewModel.cancelActiveDrag()
+                                withAnimation(.snappy) {
+                                    viewModel.handleTap(location: .tableau(pileIndex), cardIndex: index)
+                                }
+                            } else {
+                                viewModel.commitDrag(at: value.location)
+                            }
+                        }
+                )
+        } else {
+            base
+        }
     }
 
     private func yOffset(for index: Int) -> CGFloat {

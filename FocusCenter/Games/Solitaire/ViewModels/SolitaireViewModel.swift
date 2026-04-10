@@ -9,6 +9,9 @@ class SolitaireViewModel {
     var drawCount: Int = 3
     var selection: CardSelection?
     var showWin: Bool = false
+    var dropZones: [SolitaireDropZone] = []
+    var hoveredDrop: SolitaireDropDestination?
+    var activeDrag: SolitaireDragState?
     private var undoStack: [SolitaireMove] = []
 
     var isGameWon: Bool {
@@ -31,6 +34,8 @@ class SolitaireViewModel {
         undoStack = []
         selection = nil
         showWin = false
+        cancelActiveDrag()
+        dropZones = []
 
         for col in 0..<7 {
             for row in 0...col {
@@ -122,6 +127,159 @@ class SolitaireViewModel {
         case .stock:
             break
         }
+    }
+
+    func setDropZones(_ zones: [SolitaireDropZone]) {
+        dropZones = zones
+    }
+
+    private func hitTestDrop(at point: CGPoint) -> SolitaireDropDestination? {
+        let hits = dropZones.filter { $0.rect.contains(point) && $0.destination != .waste }
+        return hits.min(by: {
+            $0.rect.width * $0.rect.height < $1.rect.width * $1.rect.height
+        })?.destination
+    }
+
+    private func tableauCardYOffset(column: Int, cardIndex: Int) -> CGFloat {
+        let faceDownOffset: CGFloat = 8
+        let faceUpOffset: CGFloat = 20
+        guard column < tableau.count, cardIndex <= tableau[column].count else { return 0 }
+        let cards = tableau[column]
+        var offset: CGFloat = 0
+        for i in 0..<min(cardIndex, cards.count) {
+            offset += cards[i].isFaceUp ? faceUpOffset : faceDownOffset
+        }
+        return offset
+    }
+
+    func beginTableauDrag(
+        column: Int,
+        startIndex: Int,
+        cardWidth: CGFloat,
+        dragStartLocation: CGPoint
+    ) {
+        guard activeDrag == nil,
+              column < tableau.count,
+              startIndex < tableau[column].count,
+              tableau[column][startIndex].isFaceUp else { return }
+        let moving = Array(tableau[column][startIndex...])
+        guard moving.allSatisfy(\.isFaceUp) else { return }
+        selection = nil
+        let pileRect = dropZones.first { $0.destination == .tableau(column) }?.rect ?? .zero
+        let yCard = tableauCardYOffset(column: column, cardIndex: startIndex)
+        let base = CGPoint(x: pileRect.minX, y: pileRect.minY + yCard)
+        activeDrag = SolitaireDragState(
+            payload: .tableau(column: column, startIndex: startIndex),
+            previewCards: moving,
+            location: dragStartLocation,
+            cardWidth: cardWidth,
+            previewBaseOrigin: base,
+            dragStartLocation: dragStartLocation
+        )
+        hoveredDrop = hitTestDrop(at: dragStartLocation)
+    }
+
+    func beginWasteDrag(cardWidth: CGFloat, dragStartLocation: CGPoint) {
+        guard activeDrag == nil, waste.last != nil else { return }
+        selection = nil
+        let rect = dropZones.first { $0.destination == .waste }?.rect ?? .zero
+        let base = CGPoint(x: rect.minX, y: rect.minY)
+        activeDrag = SolitaireDragState(
+            payload: .waste,
+            previewCards: [waste.last!],
+            location: dragStartLocation,
+            cardWidth: cardWidth,
+            previewBaseOrigin: base,
+            dragStartLocation: dragStartLocation
+        )
+        hoveredDrop = hitTestDrop(at: dragStartLocation)
+    }
+
+    func beginFoundationDrag(foundationIndex: Int, cardWidth: CGFloat, dragStartLocation: CGPoint) {
+        guard activeDrag == nil,
+              foundationIndex < foundations.count,
+              let last = foundations[foundationIndex].last else { return }
+        selection = nil
+        let rect = dropZones.first { $0.destination == .foundation(foundationIndex) }?.rect ?? .zero
+        let base = CGPoint(x: rect.minX, y: rect.minY)
+        activeDrag = SolitaireDragState(
+            payload: .foundation(index: foundationIndex),
+            previewCards: [last],
+            location: dragStartLocation,
+            cardWidth: cardWidth,
+            previewBaseOrigin: base,
+            dragStartLocation: dragStartLocation
+        )
+        hoveredDrop = hitTestDrop(at: dragStartLocation)
+    }
+
+    func updateDrag(location: CGPoint) {
+        guard var drag = activeDrag else { return }
+        drag.location = location
+        activeDrag = drag
+        hoveredDrop = hitTestDrop(at: location)
+    }
+
+    func commitDrag(at location: CGPoint) {
+        guard let drag = activeDrag else { return }
+        let dest = hitTestDrop(at: location)
+        activeDrag = nil
+        hoveredDrop = nil
+        guard let dest else { return }
+        withAnimation(.snappy) {
+            _ = performDrop(drag.payload, onto: dest)
+        }
+    }
+
+    func cancelActiveDrag() {
+        activeDrag = nil
+        hoveredDrop = nil
+    }
+
+    func tableauDragOpacity(column: Int, cardIndex: Int) -> Double {
+        guard let drag = activeDrag,
+              case .tableau(let col, let start) = drag.payload,
+              col == column,
+              cardIndex >= start else { return 1 }
+        return 0.38
+    }
+
+    func wasteDragOpacity() -> Double {
+        activeDrag?.payload == .waste ? 0.38 : 1
+    }
+
+    func foundationDragOpacity(foundationIndex: Int) -> Double {
+        guard case .foundation(let idx)? = activeDrag?.payload, idx == foundationIndex else { return 1 }
+        return 0.38
+    }
+
+    @discardableResult
+    func performDrop(_ payload: SolitaireDragPayload, onto destination: SolitaireDropDestination) -> Bool {
+        selection = nil
+        if destination == .waste { return false }
+        let ok: Bool
+        switch (payload, destination) {
+        case let (.tableau(fromCol, index), .tableau(toCol)):
+            ok = moveTableauToTableau(fromCol: fromCol, cardIndex: index, toCol: toCol)
+        case (.waste, .tableau(let toCol)):
+            ok = moveWasteToTableau(toCol: toCol)
+        case let (.foundation(fromFdn), .tableau(toCol)):
+            ok = moveFoundationToTableau(fromFdn: fromFdn, toCol: toCol)
+        case let (.tableau(fromCol, index), .foundation(toFdn)):
+            guard fromCol < tableau.count,
+                  index == tableau[fromCol].count - 1 else { return false }
+            ok = moveToFoundation(
+                card: tableau[fromCol].last,
+                from: .tableau(fromCol),
+                foundationIndex: toFdn
+            )
+        case (.waste, .foundation(let toFdn)):
+            ok = moveToFoundation(card: waste.last, from: .waste, foundationIndex: toFdn)
+        default:
+            ok = false
+        }
+        if ok { checkWin() }
+        return ok
     }
 
     func handleDoubleTap(location: PileLocation, cardIndex: Int?) {
@@ -249,6 +407,7 @@ class SolitaireViewModel {
     func undo() {
         guard let move = undoStack.popLast() else { return }
         selection = nil
+        cancelActiveDrag()
 
         if let prevWaste = move.previousWaste, let prevStock = move.previousStock {
             waste = prevWaste
