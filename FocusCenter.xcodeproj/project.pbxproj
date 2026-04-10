@@ -1,0 +1,562 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0B4AF1350CFCE636E15DD37D /* SolitaireViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4747CBD8FB8E82E1A82B28E0 /* SolitaireViewModel.swift */; };
+		1E559516EBDDCE3D27E8F3B9 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FCC24E785201C446073620 /* Card.swift */; };
+		24A75DE7C636035DBF5ACF15 /* Grid2048.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C949CE02B6408F1FF6C0F87 /* Grid2048.swift */; };
+		2AE06C0A01065C03BEC7BC02 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5EEE8465DCA4385F556220 /* TileView.swift */; };
+		3943E6A54C96C9AE9182CEDE /* FocusCenterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4962653B43F2CCEF474FB78D /* FocusCenterApp.swift */; };
+		413314076E0B482D52F2D22F /* FoundationPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF2E44FA6637939732B6769 /* FoundationPileView.swift */; };
+		46B2B082923EB91FD41F9245 /* TableauPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6DADCCC0DD9E53A19340E /* TableauPileView.swift */; };
+		4A29F0102A5BB31FE25A4511 /* Game2048View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013EBD8045693FDDF6574D11 /* Game2048View.swift */; };
+		4AFE4AC118350D7BA9215F04 /* MinesweeperCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613F49EC26205046300CD71F /* MinesweeperCellView.swift */; };
+		4CB76B62A85BBCEFABFCE7AD /* GameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9339E85E611495AAFA39599C /* GameType.swift */; };
+		5FF24E92FB11DD4BB536A47D /* SolitaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6839B98C008474CF0A96DE /* SolitaireView.swift */; };
+		83795009664597A3549AFA26 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9575758F9C45E8C074B5F98F /* CardView.swift */; };
+		84251476A6C564D6A663704F /* NonogramPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6FCC00C579E3B1B63C4946 /* NonogramPuzzle.swift */; };
+		8D2D9329A009EC45E90BC63C /* NonogramViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58286688A8A2326DAFE1165F /* NonogramViewModel.swift */; };
+		8FDDC3D4BA928FC0263026CF /* HubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6DDF9FFA4BC704B99D5BDF /* HubView.swift */; };
+		940E33C2ED15A6BFDC06C48C /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7815DD16162D2048BA95EA9C /* GameDifficulty.swift */; };
+		9AF74F0014EE873257B68E0F /* MinesweeperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED090A2711B6AEF7CEDB9323 /* MinesweeperView.swift */; };
+		9E81C4C8BAEFCB1EFD9692D3 /* NonogramClueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E278E5D7A4CD020F18AC13A5 /* NonogramClueView.swift */; };
+		A9776ACE6957A3F6BABD0FC2 /* MinesweeperBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C92A1D836B24CE610EAA34 /* MinesweeperBoard.swift */; };
+		AF3CDB600017FE740EE46AFC /* StockWasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB15E1A9A5955E1827A1A8C2 /* StockWasteView.swift */; };
+		B6B921FC62107C6640DE7C5B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2518844498A10F617223F181 /* ContentView.swift */; };
+		D6F89AD723788462E9640FFF /* NonogramGridCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92112F4861CCD85E49153EE0 /* NonogramGridCellView.swift */; };
+		DFA072C1914D576721142274 /* GameCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799FC3B75F92F76C9E20ECE /* GameCardView.swift */; };
+		E76DCB920DC046257535F287 /* NonogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E015C23924B12C91B7A8BA08 /* NonogramView.swift */; };
+		F12714CB5F61E6651FA49D64 /* MinesweeperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267F0CBA2C73C4D4A73F70EE /* MinesweeperViewModel.swift */; };
+		F2A4E32EAD167607A0A06BE3 /* MinesweeperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34BC48359832BDE3F04801 /* MinesweeperCell.swift */; };
+		F893C4965FAEC1F3D53DC266 /* SolitaireMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913D6FD88F4579B7015416E6 /* SolitaireMove.swift */; };
+		FF2B0109F99BADE60C3F28B3 /* Game2048ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F86EC8FD155402BDCB6C17 /* Game2048ViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		013EBD8045693FDDF6574D11 /* Game2048View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game2048View.swift; sourceTree = "<group>"; };
+		05F86EC8FD155402BDCB6C17 /* Game2048ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game2048ViewModel.swift; sourceTree = "<group>"; };
+		1A6839B98C008474CF0A96DE /* SolitaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireView.swift; sourceTree = "<group>"; };
+		2518844498A10F617223F181 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		267F0CBA2C73C4D4A73F70EE /* MinesweeperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperViewModel.swift; sourceTree = "<group>"; };
+		3C949CE02B6408F1FF6C0F87 /* Grid2048.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid2048.swift; sourceTree = "<group>"; };
+		42FCC24E785201C446073620 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		4747CBD8FB8E82E1A82B28E0 /* SolitaireViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireViewModel.swift; sourceTree = "<group>"; };
+		4962653B43F2CCEF474FB78D /* FocusCenterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCenterApp.swift; sourceTree = "<group>"; };
+		58286688A8A2326DAFE1165F /* NonogramViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonogramViewModel.swift; sourceTree = "<group>"; };
+		5E34BC48359832BDE3F04801 /* MinesweeperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperCell.swift; sourceTree = "<group>"; };
+		613F49EC26205046300CD71F /* MinesweeperCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperCellView.swift; sourceTree = "<group>"; };
+		7815DD16162D2048BA95EA9C /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
+		86C92A1D836B24CE610EAA34 /* MinesweeperBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperBoard.swift; sourceTree = "<group>"; };
+		913D6FD88F4579B7015416E6 /* SolitaireMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolitaireMove.swift; sourceTree = "<group>"; };
+		92112F4861CCD85E49153EE0 /* NonogramGridCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonogramGridCellView.swift; sourceTree = "<group>"; };
+		9339E85E611495AAFA39599C /* GameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameType.swift; sourceTree = "<group>"; };
+		9575758F9C45E8C074B5F98F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		98B6DADCCC0DD9E53A19340E /* TableauPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPileView.swift; sourceTree = "<group>"; };
+		9B6DDF9FFA4BC704B99D5BDF /* HubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubView.swift; sourceTree = "<group>"; };
+		BC6FCC00C579E3B1B63C4946 /* NonogramPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonogramPuzzle.swift; sourceTree = "<group>"; };
+		BDF2E44FA6637939732B6769 /* FoundationPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPileView.swift; sourceTree = "<group>"; };
+		E015C23924B12C91B7A8BA08 /* NonogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonogramView.swift; sourceTree = "<group>"; };
+		E278E5D7A4CD020F18AC13A5 /* NonogramClueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonogramClueView.swift; sourceTree = "<group>"; };
+		E799FC3B75F92F76C9E20ECE /* GameCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCardView.swift; sourceTree = "<group>"; };
+		E933A8E75345D0D4DD17DCF7 /* FocusCenter.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = FocusCenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED090A2711B6AEF7CEDB9323 /* MinesweeperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperView.swift; sourceTree = "<group>"; };
+		ED5EEE8465DCA4385F556220 /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
+		FB15E1A9A5955E1827A1A8C2 /* StockWasteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockWasteView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		26A3FE516CE557D3529B5DE6 /* Game2048 */ = {
+			isa = PBXGroup;
+			children = (
+				6A40A031D8297363E9952D87 /* Models */,
+				D82827279AF9C02942F53B38 /* ViewModels */,
+				6B62F729444F3E9CD6304F42 /* Views */,
+			);
+			path = Game2048;
+			sourceTree = "<group>";
+		};
+		30D2A8552F6DC13406659EB7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				42FCC24E785201C446073620 /* Card.swift */,
+				913D6FD88F4579B7015416E6 /* SolitaireMove.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		31152DA00A0793F7B9F3FB25 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				267F0CBA2C73C4D4A73F70EE /* MinesweeperViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		494B5AB8AA05F8A9B81A301F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		61BFE5F182A7517B0BCA24E1 /* Solitaire */ = {
+			isa = PBXGroup;
+			children = (
+				30D2A8552F6DC13406659EB7 /* Models */,
+				BBBD6316DEA1D967C8EA6592 /* ViewModels */,
+				B2A089E12B88C9920A0C71AE /* Views */,
+			);
+			path = Solitaire;
+			sourceTree = "<group>";
+		};
+		637B51763E7C5B6C9DE3B5C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				613F49EC26205046300CD71F /* MinesweeperCellView.swift */,
+				ED090A2711B6AEF7CEDB9323 /* MinesweeperView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		66D8C416A429B5FCDD8F0275 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				86C92A1D836B24CE610EAA34 /* MinesweeperBoard.swift */,
+				5E34BC48359832BDE3F04801 /* MinesweeperCell.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6A40A031D8297363E9952D87 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C949CE02B6408F1FF6C0F87 /* Grid2048.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6B62F729444F3E9CD6304F42 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				013EBD8045693FDDF6574D11 /* Game2048View.swift */,
+				ED5EEE8465DCA4385F556220 /* TileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6BCC8B669CD25432D5DF350E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E278E5D7A4CD020F18AC13A5 /* NonogramClueView.swift */,
+				92112F4861CCD85E49153EE0 /* NonogramGridCellView.swift */,
+				E015C23924B12C91B7A8BA08 /* NonogramView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7863C42D6D70F07005A0A7EA /* Nonogram */ = {
+			isa = PBXGroup;
+			children = (
+				9747C2C99B1F3FAB6B754FCE /* Models */,
+				B9C73333E51B764AD6D6C521 /* ViewModels */,
+				6BCC8B669CD25432D5DF350E /* Views */,
+			);
+			path = Nonogram;
+			sourceTree = "<group>";
+		};
+		7CE5AAD7ABB73C5301292699 /* Hub */ = {
+			isa = PBXGroup;
+			children = (
+				E799FC3B75F92F76C9E20ECE /* GameCardView.swift */,
+				9B6DDF9FFA4BC704B99D5BDF /* HubView.swift */,
+			);
+			path = Hub;
+			sourceTree = "<group>";
+		};
+		85B57316942147A88A86454C /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				26A3FE516CE557D3529B5DE6 /* Game2048 */,
+				8E3CACBCE6AA3BA3BB5A4353 /* Minesweeper */,
+				7863C42D6D70F07005A0A7EA /* Nonogram */,
+				61BFE5F182A7517B0BCA24E1 /* Solitaire */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		8E3CACBCE6AA3BA3BB5A4353 /* Minesweeper */ = {
+			isa = PBXGroup;
+			children = (
+				66D8C416A429B5FCDD8F0275 /* Models */,
+				31152DA00A0793F7B9F3FB25 /* ViewModels */,
+				637B51763E7C5B6C9DE3B5C6 /* Views */,
+			);
+			path = Minesweeper;
+			sourceTree = "<group>";
+		};
+		9747C2C99B1F3FAB6B754FCE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BC6FCC00C579E3B1B63C4946 /* NonogramPuzzle.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A049D98650EDB90725B14967 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E933A8E75345D0D4DD17DCF7 /* FocusCenter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B2882012B73314AFE5A0A526 = {
+			isa = PBXGroup;
+			children = (
+				D2553EBE5B7FFCD581531699 /* FocusCenter */,
+				A049D98650EDB90725B14967 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B2A089E12B88C9920A0C71AE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9575758F9C45E8C074B5F98F /* CardView.swift */,
+				BDF2E44FA6637939732B6769 /* FoundationPileView.swift */,
+				1A6839B98C008474CF0A96DE /* SolitaireView.swift */,
+				FB15E1A9A5955E1827A1A8C2 /* StockWasteView.swift */,
+				98B6DADCCC0DD9E53A19340E /* TableauPileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9C73333E51B764AD6D6C521 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				58286688A8A2326DAFE1165F /* NonogramViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BBBD6316DEA1D967C8EA6592 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4747CBD8FB8E82E1A82B28E0 /* SolitaireViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C33A1C5862DECDEDFCA5146E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2518844498A10F617223F181 /* ContentView.swift */,
+				4962653B43F2CCEF474FB78D /* FocusCenterApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D2553EBE5B7FFCD581531699 /* FocusCenter */ = {
+			isa = PBXGroup;
+			children = (
+				C33A1C5862DECDEDFCA5146E /* App */,
+				F51A5342400781E3D489BB38 /* Core */,
+				85B57316942147A88A86454C /* Games */,
+				7CE5AAD7ABB73C5301292699 /* Hub */,
+				494B5AB8AA05F8A9B81A301F /* Shared */,
+			);
+			path = FocusCenter;
+			sourceTree = "<group>";
+		};
+		D82827279AF9C02942F53B38 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				05F86EC8FD155402BDCB6C17 /* Game2048ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F51A5342400781E3D489BB38 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				7815DD16162D2048BA95EA9C /* GameDifficulty.swift */,
+				9339E85E611495AAFA39599C /* GameType.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4F599EF6E4B02E2C2B5F3F6E /* FocusCenter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7924DA05AE87119B95306DDC /* Build configuration list for PBXNativeTarget "FocusCenter" */;
+			buildPhases = (
+				5578F1A136D50FA8F11742A7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FocusCenter;
+			packageProductDependencies = (
+			);
+			productName = FocusCenter;
+			productReference = E933A8E75345D0D4DD17DCF7 /* FocusCenter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4E449D454293451C9F19709E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 3E673ED979D58EA82B8521A4 /* Build configuration list for PBXProject "FocusCenter" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = B2882012B73314AFE5A0A526;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A049D98650EDB90725B14967 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F599EF6E4B02E2C2B5F3F6E /* FocusCenter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5578F1A136D50FA8F11742A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E559516EBDDCE3D27E8F3B9 /* Card.swift in Sources */,
+				83795009664597A3549AFA26 /* CardView.swift in Sources */,
+				B6B921FC62107C6640DE7C5B /* ContentView.swift in Sources */,
+				3943E6A54C96C9AE9182CEDE /* FocusCenterApp.swift in Sources */,
+				413314076E0B482D52F2D22F /* FoundationPileView.swift in Sources */,
+				4A29F0102A5BB31FE25A4511 /* Game2048View.swift in Sources */,
+				FF2B0109F99BADE60C3F28B3 /* Game2048ViewModel.swift in Sources */,
+				DFA072C1914D576721142274 /* GameCardView.swift in Sources */,
+				940E33C2ED15A6BFDC06C48C /* GameDifficulty.swift in Sources */,
+				4CB76B62A85BBCEFABFCE7AD /* GameType.swift in Sources */,
+				24A75DE7C636035DBF5ACF15 /* Grid2048.swift in Sources */,
+				8FDDC3D4BA928FC0263026CF /* HubView.swift in Sources */,
+				A9776ACE6957A3F6BABD0FC2 /* MinesweeperBoard.swift in Sources */,
+				F2A4E32EAD167607A0A06BE3 /* MinesweeperCell.swift in Sources */,
+				4AFE4AC118350D7BA9215F04 /* MinesweeperCellView.swift in Sources */,
+				9AF74F0014EE873257B68E0F /* MinesweeperView.swift in Sources */,
+				F12714CB5F61E6651FA49D64 /* MinesweeperViewModel.swift in Sources */,
+				9E81C4C8BAEFCB1EFD9692D3 /* NonogramClueView.swift in Sources */,
+				D6F89AD723788462E9640FFF /* NonogramGridCellView.swift in Sources */,
+				84251476A6C564D6A663704F /* NonogramPuzzle.swift in Sources */,
+				E76DCB920DC046257535F287 /* NonogramView.swift in Sources */,
+				8D2D9329A009EC45E90BC63C /* NonogramViewModel.swift in Sources */,
+				F893C4965FAEC1F3D53DC266 /* SolitaireMove.swift in Sources */,
+				5FF24E92FB11DD4BB536A47D /* SolitaireView.swift in Sources */,
+				0B4AF1350CFCE636E15DD37D /* SolitaireViewModel.swift in Sources */,
+				AF3CDB600017FE740EE46AFC /* StockWasteView.swift in Sources */,
+				46B2B082923EB91FD41F9245 /* TableauPileView.swift in Sources */,
+				2AE06C0A01065C03BEC7BC02 /* TileView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		63B98E2678644F1F73EB4597 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		733D19496B9B454219DDE912 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FocusCenter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.focuscenter.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8A61DB7FCFDD325C30ABB56C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		ECF7839C7F384D85B782B24E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FocusCenter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.focuscenter.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3E673ED979D58EA82B8521A4 /* Build configuration list for PBXProject "FocusCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B98E2678644F1F73EB4597 /* Debug */,
+				8A61DB7FCFDD325C30ABB56C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7924DA05AE87119B95306DDC /* Build configuration list for PBXNativeTarget "FocusCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				733D19496B9B454219DDE912 /* Debug */,
+				ECF7839C7F384D85B782B24E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4E449D454293451C9F19709E /* Project object */;
+}
