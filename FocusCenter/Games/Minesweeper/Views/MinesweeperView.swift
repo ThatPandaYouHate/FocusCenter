@@ -11,6 +11,7 @@ struct MinesweeperView: View {
             statusBar
             gameGrid
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(.systemGroupedBackground))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
@@ -84,16 +85,22 @@ struct MinesweeperView: View {
         GeometryReader { geo in
             let spacing: CGFloat = 2
             let horizontalPadding: CGFloat = 16
-            let availableWidth = geo.size.width - (horizontalPadding * 2)
-            let totalSpacing = spacing * CGFloat(viewModel.difficulty.cols - 1)
-            let cellSize = (availableWidth - totalSpacing) / CGFloat(viewModel.difficulty.cols)
+            let rows = viewModel.difficulty.rows
+            let cols = viewModel.difficulty.cols
+            let innerW = geo.size.width - horizontalPadding * 2
+            let innerH = max(0, geo.size.height)
+            let gapW = spacing * CGFloat(cols - 1)
+            let gapH = spacing * CGFloat(rows - 1)
+            let cellFromWidth = (innerW - gapW) / CGFloat(cols)
+            let cellFromHeight = (innerH - gapH) / CGFloat(rows)
+            let cellSize = max(4, min(cellFromWidth, cellFromHeight))
 
-            ScrollView {
-                let columns = Array(
-                    repeating: GridItem(.fixed(cellSize), spacing: spacing),
-                    count: viewModel.difficulty.cols
-                )
+            let columns = Array(
+                repeating: GridItem(.fixed(cellSize), spacing: spacing),
+                count: cols
+            )
 
+            ZStack {
                 LazyVGrid(columns: columns, spacing: spacing) {
                     ForEach(viewModel.cells.flatMap { $0 }) { cell in
                         MinesweeperCellView(
@@ -111,9 +118,11 @@ struct MinesweeperView: View {
                         }
                     }
                 }
-                .padding(.horizontal, horizontalPadding)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal, horizontalPadding)
         }
+        .frame(maxHeight: .infinity)
     }
 
     private var smileyFace: String {

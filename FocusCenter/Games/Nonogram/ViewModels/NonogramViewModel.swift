@@ -8,6 +8,8 @@ class NonogramViewModel {
     var isFillingMode: Bool = true
     var isGameWon: Bool = false
     var showWinAlert: Bool = false
+    /// Unikt ID per genererat spel – garanterar att SwiftUI bygger om hela vyn.
+    var gameID = UUID()
 
     init() {
         self.size = .small
@@ -19,18 +21,23 @@ class NonogramViewModel {
         )
     }
 
-    func newGame() {
+    func newGame(newSize: NonogramSize? = nil) {
+        if let newSize { size = newSize }
+        let p = NonogramPuzzle.generate(size: size)
+        puzzle = p
+        playerGrid = Array(
+            repeating: Array(repeating: NonogramCellState.empty, count: p.solution[0].count),
+            count: p.solution.count
+        )
         isGameWon = false
         showWinAlert = false
-        puzzle = NonogramPuzzle.generate(size: size)
-        playerGrid = Array(
-            repeating: Array(repeating: NonogramCellState.empty, count: size.cols),
-            count: size.rows
-        )
+        gameID = UUID()
     }
 
     func toggleCell(row: Int, col: Int) {
-        guard !isGameWon else { return }
+        guard !isGameWon,
+              row < playerGrid.count,
+              col < (playerGrid.first?.count ?? 0) else { return }
 
         if isFillingMode {
             playerGrid[row][col] = playerGrid[row][col] == .filled ? .empty : .filled
@@ -40,6 +47,8 @@ class NonogramViewModel {
     }
 
     func checkWin() {
+        guard playerGrid.count == size.rows,
+              (playerGrid.first?.count ?? 0) == size.cols else { return }
         for r in 0..<size.rows {
             for c in 0..<size.cols {
                 let isFilled = playerGrid[r][c] == .filled

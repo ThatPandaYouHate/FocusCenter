@@ -25,8 +25,8 @@ struct NonogramView: View {
                     }
                 }
                 .padding(4)
-                .id(viewModel.size)
             }
+            .id(viewModel.gameID)
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Nonogram")
@@ -55,8 +55,7 @@ struct NonogramView: View {
             Picker("Storlek", selection: Binding(
                 get: { viewModel.size },
                 set: { newSize in
-                    viewModel.size = newSize
-                    viewModel.newGame()
+                    viewModel.newGame(newSize: newSize)
                 }
             )) {
                 ForEach(NonogramSize.allCases, id: \.self) { s in
@@ -80,46 +79,42 @@ struct NonogramView: View {
     private func cellSize(for geo: GeometryProxy) -> CGFloat {
         let availableWidth = geo.size.width - 8
         let rowClueColumns = CGFloat(viewModel.maxRowClueCount)
-        let totalColumns = rowClueColumns + CGFloat(viewModel.puzzle.colClues.count)
+        let gridCols = CGFloat(viewModel.playerGrid.first?.count ?? 1)
+        let totalColumns = rowClueColumns + gridCols
         return min(availableWidth / totalColumns, 40)
     }
 
     // MARK: - Column Clues
 
     private func columnCluesSection(cellSize cs: CGFloat) -> some View {
-        HStack(spacing: 0) {
-            ForEach(viewModel.puzzle.colClues.indices, id: \.self) { col in
-                let padded = paddedColClues(viewModel.puzzle.colClues[col])
+        let clues = viewModel.puzzle.colClues
+        let maxCount = viewModel.maxColClueCount
+        return HStack(spacing: 0) {
+            ForEach(Array(clues.enumerated()), id: \.offset) { _, colClue in
+                let padded = padClues(colClue, toCount: maxCount)
                 NonogramClueView(clues: padded, orientation: .vertical, cellSize: cs)
                     .frame(width: cs)
             }
         }
     }
 
-    private func paddedColClues(_ clues: [Int]) -> [Int] {
-        let max = viewModel.maxColClueCount
-        if clues.count < max {
-            return Array(repeating: -1, count: max - clues.count) + clues
-        }
-        return clues
-    }
-
     // MARK: - Row Clues
 
     private func rowCluesSection(cellSize cs: CGFloat) -> some View {
-        VStack(spacing: 0) {
-            ForEach(viewModel.puzzle.rowClues.indices, id: \.self) { row in
-                let padded = paddedRowClues(viewModel.puzzle.rowClues[row])
+        let clues = viewModel.puzzle.rowClues
+        let maxCount = viewModel.maxRowClueCount
+        return VStack(spacing: 0) {
+            ForEach(Array(clues.enumerated()), id: \.offset) { _, rowClue in
+                let padded = padClues(rowClue, toCount: maxCount)
                 NonogramClueView(clues: padded, orientation: .horizontal, cellSize: cs)
                     .frame(height: cs)
             }
         }
     }
 
-    private func paddedRowClues(_ clues: [Int]) -> [Int] {
-        let max = viewModel.maxRowClueCount
-        if clues.count < max {
-            return Array(repeating: -1, count: max - clues.count) + clues
+    private func padClues(_ clues: [Int], toCount maxCount: Int) -> [Int] {
+        if clues.count < maxCount {
+            return Array(repeating: -1, count: maxCount - clues.count) + clues
         }
         return clues
     }
@@ -127,25 +122,23 @@ struct NonogramView: View {
     // MARK: - Grid
 
     private func gridSection(cellSize cs: CGFloat) -> some View {
-        let rows = viewModel.playerGrid.count
-        let cols = viewModel.playerGrid.first?.count ?? 0
+        let snapshot = NonogramGridSnapshot(viewModel: viewModel)
 
         return VStack(spacing: 0) {
-            ForEach(0..<rows, id: \.self) { row in
+            ForEach(snapshot.rows, id: \.rowIndex) { rowData in
                 HStack(spacing: 0) {
-                    ForEach(0..<cols, id: \.self) { col in
+                    ForEach(rowData.cells, id: \.colIndex) { cell in
                         NonogramGridCellView(
-                            state: viewModel.playerGrid[row][col],
+                            state: cell.state,
                             size: cs,
-                            isCorrectlyFilled: viewModel.isGameWon && viewModel.puzzle.solution[row][col]
+                            isCorrectlyFilled: cell.isCorrectlyFilled
                         )
-                        .animation(.snappy, value: viewModel.playerGrid[row][col])
                         .onTapGesture {
-                            viewModel.toggleCell(row: row, col: col)
+                            viewModel.toggleCell(row: cell.rowIndex, col: cell.colIndex)
                             viewModel.checkWin()
                         }
                         .overlay(alignment: .trailing) {
-                            if col < cols - 1 && (col + 1) % 5 == 0 {
+                            if cell.colIndex < rowData.cells.count - 1 && (cell.colIndex + 1) % 5 == 0 {
                                 Rectangle()
                                     .fill(Color.primary.opacity(0.4))
                                     .frame(width: 1.5)
@@ -154,7 +147,7 @@ struct NonogramView: View {
                     }
                 }
                 .overlay(alignment: .bottom) {
-                    if row < rows - 1 && (row + 1) % 5 == 0 {
+                    if rowData.rowIndex < snapshot.rows.count - 1 && (rowData.rowIndex + 1) % 5 == 0 {
                         Rectangle()
                             .fill(Color.primary.opacity(0.4))
                             .frame(height: 1.5)
@@ -163,6 +156,48 @@ struct NonogramView: View {
             }
         }
         .border(Color.primary.opacity(0.5), width: 1)
+    }
+}
+
+// MARK: - Grid Snapshot (value types – safe from @Observable races)
+
+private struct NonogramGridSnapshot {
+    let rows: [RowData]
+
+    struct RowData: Identifiable {
+        let rowIndex: Int
+        let cells: [CellData]
+        var id: Int { rowIndex }
+    }
+
+    struct CellData: Identifiable {
+        let rowIndex: Int
+        let colIndex: Int
+        let state: NonogramCellState
+        let isCorrectlyFilled: Bool
+        var id: Int { colIndex }
+    }
+
+    init(viewModel: NonogramViewModel) {
+        let grid = viewModel.playerGrid
+        let solution = viewModel.puzzle.solution
+        let isWon = viewModel.isGameWon
+
+        rows = grid.indices.map { r in
+            let rowCells = grid[r]
+            let solutionRow = r < solution.count ? solution[r] : []
+            return RowData(
+                rowIndex: r,
+                cells: rowCells.indices.map { c in
+                    CellData(
+                        rowIndex: r,
+                        colIndex: c,
+                        state: rowCells[c],
+                        isCorrectlyFilled: isWon && c < solutionRow.count && solutionRow[c]
+                    )
+                }
+            )
+        }
     }
 }
 

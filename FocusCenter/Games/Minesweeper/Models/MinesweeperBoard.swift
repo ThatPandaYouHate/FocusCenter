@@ -8,16 +8,16 @@ enum MinesweeperDifficulty: String, CaseIterable {
     var rows: Int {
         switch self {
         case .beginner: 9
-        case .intermediate: 16
-        case .expert: 16
+        case .intermediate: 18
+        case .expert: 30
         }
     }
 
     var cols: Int {
         switch self {
         case .beginner: 9
-        case .intermediate: 16
-        case .expert: 30
+        case .intermediate: 14
+        case .expert: 16
         }
     }
 

@@ -65,7 +65,10 @@ private final class InteractivePopTokenViewController: UIViewController {
     }
 
     private func keyWindowRootViewController() -> UIViewController? {
-        UIApplication.shared.connectedScenes
+        guard ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PLAYGROUNDS"] == nil else {
+            return nil
+        }
+        return UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .flatMap(\.windows)
             .first(where: \.isKeyWindow)?
